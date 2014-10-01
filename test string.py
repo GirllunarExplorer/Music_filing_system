@@ -1,9 +1,5 @@
-__author__ = 'tracyrohlin'
+import discogs_client
 
-import string
-sentence = "I will Not Capitalize everything!"
-
-print string.capwords(sentence)
 
 
 
