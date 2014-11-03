@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 __author__ = 'tracyrohlin'
 
 import sys
@@ -8,16 +9,29 @@ import discogs_client as discogs
 import os
 import shutil
 import string
+import oauth2 as oauth
+import urlparse
+
+consumer_key = 'rAjSgwbCPsRVZbJoyvmt'
+consumer_secret = 'fNTLMBiFlLerIgIuyKIytckvOrqqcOpv'
+request_token_url = 'http://api.discogs.com/oauth/request_token'
+authorize_url = 'http://www.discogs.com/oauth/authorize'
+access_token_url = 'http://api.discogs.com/oauth/access_token'
 
 discogs.user_agent = 'MyMusicPythonProject'
 
+
 def main(album_path, artist_name, album_name, album_type):
     client = discogs.Client('test client')
-
+    client.set_consumer_key(consumer_key, consumer_secret)
+    print "follow this url to authorize the client"
+    print client.get_authorize_url()[2]
+    new_key = raw_input()
+    client.get_access_token(new_key)
     print 'working on', album_path
     title = album_path.split('/')[-1]
 
-    itunes_path = '/Users/tracyrohlin/Music/iTunes/iTunes Media/Music/'
+    itunes_path = '/Users/tracy/Music/iTunes/iTunes Media/Music/'
 
     releases = [x for x in client.search(album_name, artist = artist_name)]
     target_album = None
@@ -44,7 +58,7 @@ def main(album_path, artist_name, album_name, album_type):
         for track in target_album.tracklist:
 
             for song in os.listdir(album_path):
-                if track.title in song:
+                if track.title.lower() in song.lower():
                     shutil.copyfile(album_path+'/'+song, itunes_path+'/'+string.capwords(track.title)+'.mp3')
                     print (album_path+'/'+song, itunes_path+'/'+string.capwords(track.title)+'.mp3')
 
@@ -69,9 +83,9 @@ def main(album_path, artist_name, album_name, album_type):
                     break
 
     elif album_type == "soundtrack":
-        if not os.path.exists(itunes_path + "Soundtrack"):
-            os.mkdir(itunes_path + "Soundtrack")
-        itunes_path += "Soundtrack" + '/'
+        if not os.path.exists(itunes_path + "Soundtracks"):
+            os.mkdir(itunes_path + "Soundtracks")
+        itunes_path += "Soundtracks" + '/'
         if not os.path.exists(itunes_path + album_name):
             os.mkdir(itunes_path + album_name)
         itunes_path += album_name + '/'
@@ -83,7 +97,7 @@ def main(album_path, artist_name, album_name, album_type):
                 print "Is this the correct title track? " + song
 
                 if raw_input() == "yes":
-                    #Will not accept foreign characters, inclusing characters with accent marks on them
+                    #Will not accept foreign characters, including characters with accent marks on them
                     shutil.copyfile(album_path+'/'+ song, itunes_path  + compilation_artist + " - " + string.capwords(track.title)+'.mp3')
                     break
 
