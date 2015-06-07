@@ -20,6 +20,8 @@ access_token_url = 'http://api.discogs.com/oauth/access_token'
 
 discogs.user_agent = 'MyMusicPythonProject'
 
+def non_standard(album_type):
+
 
 def main(album_path, artist_name, album_name, album_type):
     client = discogs.Client('test client')
@@ -29,9 +31,8 @@ def main(album_path, artist_name, album_name, album_type):
     new_key = raw_input()
     client.get_access_token(new_key)
     print 'working on', album_path
-    title = album_path.split('/')[-1]
-
-    itunes_path = '/Users/tracy/Music/iTunes/iTunes Media/Music/'
+    
+    itunes_path = '/Users/tracy/Music/iTunes/iTunes Media/Music'
 
     releases = [x for x in client.search(album_name, artist = artist_name)]
     target_album = None
@@ -42,13 +43,13 @@ def main(album_path, artist_name, album_name, album_type):
             print track
         print "does this look correct?"
         answer = raw_input()
-        if answer =="yes":
+        if answer[0].lower() =="y":
             target_album = current
     print "going to use", target_album
 
-    if album_type == 'standard':
+    if album_type.lower() == 'standard':
 
-        if not os.path.exists(itunes_path + artist_name):
+        if not os.path.exists(itunes_path + artist_name): #creates the artist folder and album folders if they do not exist
             os.mkdir(itunes_path + artist_name)
         itunes_path += artist_name + '/'
         if not os.path.exists(itunes_path + album_name):
@@ -62,25 +63,28 @@ def main(album_path, artist_name, album_name, album_type):
                     shutil.copyfile(album_path+'/'+song, itunes_path+'/'+string.capwords(track.title)+'.mp3')
                     print (album_path+'/'+song, itunes_path+'/'+string.capwords(track.title)+'.mp3')
 
-    elif album_type == "compilation":
+    elif album_type.lower() == "compilation":
+        album_type = string.capwords(album_type)
 
-        if not os.path.exists(itunes_path + "Compilations"):
-            os.mkdir(itunes_path + "Compilations")
-        itunes_path += "Compilations" + '/'
-        if not os.path.exists(itunes_path + album_name):
+        if not os.path.exists(itunes_path + album_type): #creates a separate compilations folder
+            os.mkdir(itunes_path + album_type)
+        itunes_path += album_type + '/'
+        if not os.path.exists(itunes_path + album_name): #creates an album folder in the compilations folder
             os.mkdir(itunes_path + album_name)
         itunes_path += album_name + '/'
 
-        for track in target_album.tracklist:
+        for track in target_album.tracklist: #asks for artists names for songs in order to make a "artistname - songname.mp3" format
             print "who is the artist for " + track.title
             compilation_artist = raw_input()
             for song in os.listdir(album_path):
                 print "Is this the correct title track? " + song
+                try:
+                    if raw_input()[0].lower() == "y":
 
-                if raw_input() == "yes":
-                    #Will not accept foreign characters, inclusing characters with accent marks on them
-                    shutil.copyfile(album_path+'/'+ song, itunes_path  + compilation_artist + " - " + string.capwords(track.title)+'.mp3')
-                    break
+                        shutil.copyfile(album_path+'/'+ song, itunes_path  + compilation_artist + " - " + string.capwords(track.title)+'.mp3')
+                        break
+                except:
+                    print "Will not accept foreign characters, including characters with accent marks on them"
 
     elif album_type == "soundtrack":
         if not os.path.exists(itunes_path + "Soundtracks"):
