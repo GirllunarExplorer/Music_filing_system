@@ -17,7 +17,7 @@ discogs.user_agent = 'MyMusicPythonProject'
 
 def set_destination():
 <<<<<<< HEAD
-    default = '/Users/tracyrohlin/Music/iTunes/iTunes Media/Music'
+    default = '/Users/username/Music/iTunes/iTunes Media/Music'
 =======
     default = '/Users/username/Music/iTunes/iTunes Media/Music/'
 >>>>>>> origin/master
