@@ -1,4 +1,4 @@
-__author__ = 'tracyrohlin'
+__author__ = 'GirlLunarExplorer'
 
 import argparse
 from string import capwords
@@ -16,7 +16,7 @@ access_token_url = 'http://api.discogs.com/oauth/access_token'
 discogs.user_agent = 'MyMusicPythonProject'
 
 def set_destination():
-    default = '/Users/tracyrohlin/Music/iTunes/iTunes Media/Music/'
+    default = '/Users/username/Music/iTunes/iTunes Media/Music/'
     itunes_path = raw_input("Please enter destination path.  Default is {0} \n".format(default))
     if not itunes_path:
         itunes_path = default
