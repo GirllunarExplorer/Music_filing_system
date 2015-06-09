@@ -16,7 +16,7 @@ Because discogs limits the amount of tokens given out in a 24 hour period, each 
 
     >>>follow this url to authorize the client
     http://www.discogs.com/oauth/authorize?oauth_token=hxSKSosFwywjQAlqobcgXNCpJGtSHbgDLiSjUScz
-   SLIbiFDlVx
+    SLIbiFDlVx
 
 The program searches through each release that matches the album name and asks the user if that is the correct release:
 
