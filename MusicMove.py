@@ -16,11 +16,8 @@ access_token_url = 'http://api.discogs.com/oauth/access_token'
 discogs.user_agent = 'MyMusicPythonProject'
 
 def set_destination():
-<<<<<<< HEAD
-    default = '/Users/username/Music/iTunes/iTunes Media/Music'
-=======
+
     default = '/Users/username/Music/iTunes/iTunes Media/Music/'
->>>>>>> origin/master
     itunes_path = raw_input("Please enter destination path.  Default is {0} \n".format(default))
     if not itunes_path:
         itunes_path = default
