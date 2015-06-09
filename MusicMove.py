@@ -116,7 +116,7 @@ class Music_paths(object):
                     source = "{0}/{1}".format(self.album_path, song)
                     dest = "{0}/{1}{2}".format(self.itunes_path,title,file_tag)
                     shutil.copyfile(source, dest)
-                    print "moving from {0} to {1}".format(source, dest)
+                    print source, dest
 
     def non_standard_album(self,):
         self.target_album = self.get_target_album()
