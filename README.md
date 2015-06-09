@@ -17,6 +17,7 @@ Because discogs limits the amount of tokens given out in a 24 hour period, each 
 
 >>>follow this url to authorize the client
 http://www.discogs.com/oauth/authorize?oauth_token=hxSKSosFwywjQAlqobcgXNCpJGtSHbgDLiSjUScz
+
 SLIbiFDlVx
 
 The program searches through each release that matches the album name and asks the user if that is the correct release:
@@ -43,7 +44,9 @@ The program searches through each release that matches the album name and asks t
 >>><Track u'20' u'Season Song'>
 >>><Track u'21' u'End Credits'>
 >>>does this look correct?
+
 yes
+
 >>>going to use <Master 113964 u'28 Days Later (The Soundtrack Album)'>
 
 
@@ -51,6 +54,7 @@ If it is a standard album, the files from the source should move automatically t
 
 
 >>>who is the artist for The Beginning
+
 John Murphy
 
 >>>Moving to /Users/username/Music/iTunes/iTunes Media/MusicSoundtracks/28 Days Later (The Soundtrack Album)/John Murphy - The beginning.mp3
