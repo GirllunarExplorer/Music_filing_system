@@ -1,4 +1,4 @@
-__author__ = 'tracyrohlin'
+__author__ = 'GirlLunarExplorer'
 
 import argparse
 from string import capwords
@@ -16,7 +16,7 @@ access_token_url = 'http://api.discogs.com/oauth/access_token'
 discogs.user_agent = 'MyMusicPythonProject'
 
 def set_destination():
-    default = '/Users/tracyrohlin/Music/iTunes/iTunes Media/Music/'
+    default = '/Users/tracyrohlin/Music/iTunes/iTunes Media/Music'
     itunes_path = raw_input("Please enter destination path.  Default is {0} \n".format(default))
     if not itunes_path:
         itunes_path = default
@@ -114,9 +114,9 @@ class Music_paths(object):
                     file_tag = check_file_tag(song)
                     title = check_unwanted_chars(capwords(track.title))
                     source = "{0}/{1}".format(self.album_path, song)
-                    dest = "{0}/{1}{2}".format(self.itunes_path,title,file_tag)
+                    dest = "{0}{1}{2}".format(self.itunes_path,title,file_tag)
                     shutil.copyfile(source, dest)
-                    print source, dest
+                    print "Moving to {0}".format(dest)
 
     def non_standard_album(self,):
         self.target_album = self.get_target_album()
@@ -134,16 +134,13 @@ class Music_paths(object):
             compilation_artist = raw_input("who is the artist for {}\n".format(track.title))
             for song in os.listdir(self.album_path):
                 if track.title.lower() in song.lower():
-                    search = self.client.search(self.album_name, type="release")[0].artists
-                    for item in search:
-                        print item
                     file_tag = check_file_tag(song)
                     title = check_unwanted_chars(capwords(track.title))
                     source = "{0}/{1}".format(self.album_path, song)
                     dest = "{0}{1} - {2}{3}".format(self.itunes_path,compilation_artist,title,file_tag)
                     try:
                         shutil.copyfile(source,  dest)
-                        print source, dest
+                        print "Moving to {0}".format(dest)
                         break
                     except Exception as error:
                         print error
